@@ -1,0 +1,94 @@
+\documentclass[12pt]{article}
+
+% packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{afterpage}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{titlesec}
+ 
+% figure directory path
+\graphicspath{{figures/}{../figures/}{../../figures}}
+ 
+% font selection
+\setmainfont{Times New Roman}
+
+% section and subsection heading sizes
+\titleformat{\section}
+{\normalfont\fontsize{12}{12}\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+{\normalfont\fontsize{12}{12}\bfseries}{\thesubsection}{1em}{}
+
+% line spacing
+\linespread{1.25}
+
+% club and widow penalties
+\clubpenalty10000
+\widowpenalty100000
+
+% theorem and corollary formatting
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+
+% title formatting
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+ \textbf{\@title}
+
+ \@author
+\end{flushleft}\egroup
+}
+\makeatother
+
+% subfiling
+\usepackage{subfiles} % Best loaded last in the preamble
+
+% title
+\title{The Dilemma with Romance as a Business and How Tinder Solves It}
+\author{Author: Clayton H. Pruitt\footnote{chp4145@rit.edu} \newline Mentor: Dr. Mary Lynn Reed \footnote{mlrsma@rit.edu} \newline \textit{School of Mathematical Sciences, Rochester Institute of Technology}}
+
+\begin{document}
+
+\maketitle
+
+% abstract
+\subfile{sections/abstract}
+
+% introduction
+\section{Introduction}
+\subfile{sections/introduction}
+
+% background
+\section{Background}
+\subfile{sections/background}
+
+% model
+\section{Model}
+\subfile{sections/model}
+
+% results
+\section{Results}
+\subfile{sections/results}
+
+% conclusion
+\section{Conclusion}
+\subfile{sections/conclusion}
+
+% acknowledgements
+\section{Acknowledgements}
+\subfile{sections/acknowledgements}
+
+% bibliography
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}

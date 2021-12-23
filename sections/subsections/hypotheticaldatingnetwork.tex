@@ -1,0 +1,79 @@
+Consider an optimal online dating service represented by the preference network
+\begin{align*}
+    P = (V(P), E(P), \psi_{P}). 
+\end{align*}
+Let $V_{X}(P)$ and $V_{Y}(P)$ represent the vertices contained in sets $X$ and $Y$ respectively such that each vertex represents a user in the service and a single set contains a vertex for every user. Note then that for all vertices $x \in V_{X}(P)$ there exists a $y \in V_{Y}(P)$ such that both $x$ and $y$ represent the same user and vice versa. However, we will not consider these vertices to be equal, i.e. $x \neq y$, as we will let $V_{X}(P)$ represent the set of all individuals in $P$ and $V_{Y}(P)$ represent the set of all objects of interest in $P$. This gives us that
+\begin{align*}
+    V(P) = V_{X}(P) \cup V_{Y}(P).
+\end{align*}
+
+Let an edge $e \in E(P)$ be a directed, weighted edge. The edge $e$ represents a possible recommendation to be given to a user such that an edge directed from user $u \in V(P)$ to the user $w \in V(P)$ represents that $w$ could be recommended to $u$. Note that this does not necessarily mean that $w$ has been recommended to $u$ yet, but rather that a recommendation is possible. 
+
+The weight of the edge will represent the estimated utility of the recommendation $\hat{R}(u, w)$. We assume that if $u$ will be recommended to $w$ then $w$ will be recommended to $u$ as well. However, the estimated utility of the recommendation of $w$ to $u$ may differ from the estimated utility of the recommendation of $u$ to $w$. Essentially, we can assume that it will generally be the case that
+\begin{align*}
+    \hat{R}(u, w) \neq \hat{R}(w, u),
+\end{align*}
+for all $u, w \in V(P)$. Note that if $\hat{R}(u, w)$ or $\hat{R}(w, u)$ equal zero then neither user should be recommended to the other.
+
+The incidence function $\psi_{P}$, which associates each edge $e \in E(P)$ with a pair of vertices $v_{1}, v_{2} \in V(P)$, maintains its traditional definition. As such, given an edge $e \in E(P)$ that is directed from user $u \in V(P)$ to user $w \in V(P)$, we can define $\psi_{P}(e)$ as
+\begin{align*}
+\psi_{P}(e) = uw. 
+\end{align*}
+
+Corollary \ref{corollary:subgraphs} states that a decomposition of $P$ into a set of regular disjoint subgraphs $H$ may satisfy Theorem \ref{theorem:smsg} even if the subgraphs are not edge-disjoint. To this effect we will construct $H$ such that the number of edges within each subgraph $h \in H$ is maximized while the number of edges between each subgraph is minimized. Additionally, all vertices of $P$ will be represented by the set of subgraphs $H$, i.e. for all $v_{P} \in V(P)$ there exists an $h \in H$ and a $v_{h} \in V(h)$ such that $v_{P} = v_{h}$. An example of this decomposition process is demonstrated in Figure \ref{fig:graphpartitioning}.
+
+
+%\afterpage{
+    \begin{figure}[t!]
+    \centering
+    \begin{subfigure}{.33\textwidth}
+        \centering
+        \includegraphics[height = .32\textheight]{p}
+        \label{fig:pgraph}
+    \end{subfigure}%
+    \begin{subfigure}{.33\textwidth}
+        \centering
+        \includegraphics[height = .32\textheight]{h_example1}
+        \label{fig:hgraph1}
+    \end{subfigure}
+    \begin{subfigure}{.33\textwidth}
+        \centering
+        \includegraphics[height = .32\textheight]{h_example2}
+        \label{fig:hgraph2}
+    \end{subfigure}
+    \caption{The preference network $P$ can be decomposed into a set of disjoint subgraphs $H$ such that each subgraph $h \in H$ is both regular and disjoint and the edges within subgraphs are maximized while the edges between subgraphs are minimized. Note that $P$ may have multiple qualifying decompositions.}
+    \label{fig:graphpartitioning}
+    \end{figure}
+%}
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[height = .325\textheight]{mmm_in_p.png}
+    \caption{We can find a minimum maximal matching, which is also a perfect matching, for each $h \in H$. This represents a perfect matching in $P$.}
+    \label{fig:mmm_in_p}
+\end{figure}
+
+We assume that this service wishes to successfully create as many relationships as possible without any regard to maintaining profitability. In other words, we seek to form as many stable marriages as possible within the subgraphs of $H$. This can be accomplished through finding a perfect matching in $P$, which requires finding a perfect matching for all $h \in H$. Let
+\begin{align*}
+M_{H} = \{M_{1}, M_{2}, \dots M_{k}\},
+\end{align*}
+be the set of perfect matchings for $h_{1}, h_{2}, \ldots, h_{k} \in H$ respectively with $k = |H|$. Let these edges be picked dependent of their weights such that the stable marriage problem is satisifed for each subgraph $h$. Then the matching
+\begin{align*}
+    M_{P} = M_{1} \cup M_{2} \cup \ldots \cup M_{k},
+\end{align*}
+can be considered a perfect matching for $P$ as every vertex in $P$ is incident to an edge in $M_{P}$ and no two edges in $M_{P}$ are incident to the same vertex in $P$. 
+
+The perfect matching of a graph $G$ may be constructed while satisfying the stable marriage problem by finding a \textit{minimum maximal matching} (MMM) for $G$ \citep{Demange2008}. Thus, if we let $M_{H}$ be the set of MMM for each subgraph $h \in H$, we can arrive at the same conclusion that $M_{P}$ will be a perfect matching which satisfies the stable marriage problem for $P$. This methodology is demonstrated in Figure \ref{fig:mmm_in_p}.
+
+Finally, assume that the service requires at least a certain amount of users to remain in business and assume that users assigned within a stable marriage are no longer considered part of the service's user base. This amount will be referred to as the \textit{minimum viable threshold} and finds its inspiration in work on population models.
+
+If we calculate the error between the estimated utility $\hat{R}$ determined by the service's recommender algorithm and the actual utility $R$, it is likely we would find that $\hat{R}$ may be allowed a large margin of error compared to $R$ as the recommender algorithm would only need to create enough stable marriages to guarantee the user base drops below the minimum viable threshold. Thus, we can determine that the recommender algorithm used by the service does not need to be perfect. This concept is illustrated in Figure \ref{fig:algorithmprocess}.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[height = .325\textheight]{recommenderalgorithmprocess.png}
+    \caption{The set $P$ decomposed into the set of subgraphs $H = \{H_{1}, H_{2}\}$. If the service's algorithm succeeds in creating stable marriages in only $H_{1}$, resulting in all users of $H_{1}$ leaving the service, we are left with $P - H_{1}$. The algorithm will execute again on $P - H_{1}$ and continue until the user base falls below the minimum viable population, at which point the user base will soon collapse to zero.}
+    \label{fig:algorithmprocess}
+\end{figure}
+
+To summarize, the algorithm utilized by the optimal online dating service will operate as such. Begin by calculating $\hat{R}(u, w)$ for all $u \in V_{X}(P)$ and all $w\in V_{Y}(P)$ such that $u$ and $w$ do not represent the same user. Decompose $P$ into a set of subgraphs $H$ such that each subgraph in $H$ is regular and disjoint and the number of edges within a subgraph is maximized while the number of edges between any two subgraphs of $H$ is minimized. For each subgraph $h \in H$, compute the minimum maximal matching of $h$ and let the set $M_{H}$ represent the set of all minimum maximal matchings in $H$. Create a perfect matching for $P$ by defining $M_{P}$ as the union of all matchings contained in the set $M_{H}$. If two users are incident to an edge contained in $M_{P}$, recommend them to each other. If users $u$ and $w$ form a relationship, remove them from the user base. Repeat this process until the user base falls below the minimum viable threshold.
